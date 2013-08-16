@@ -1,0 +1,2 @@
+# MANAGED BY PUPPET!
+0,15,30,45 * * * * root /etc/puppet/apply.sh > /dev/null 2>&1
