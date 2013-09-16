@@ -19,9 +19,19 @@ class puppet {
     group  => 'root',
     mode   => '0700',
   }
-    
-  add_group { 'puppet': gid => 52 }
-    
-  add_service { 'puppet': gid => 52, groups => '', uid => 52 }
+  
+  group { 'puppet':
+    ensure => present,
+    gid    => 52,
+  }
+
+  user { 'puppet':
+    ensure     => present,
+    gid        => 52,
+    home       => '/var/lib/puppet',
+    shell      => '/sbin/nologin',
+    managehome => true,
+    uid        => 52,
+  }
 
 }
