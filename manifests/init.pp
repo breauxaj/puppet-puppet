@@ -1,6 +1,6 @@
 class puppet {
-  $required = $operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'augeas-libs', 'facter', 'puppet', 'ruby', 'ruby-rdoc', 'rubygems' ],
+  $required = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => 'puppet',
   }
 
   package { $required: ensure => latest }
@@ -12,14 +12,14 @@ class puppet {
     mode   => '0644',
     source => 'puppet:///modules/puppet/puppet.cron'
   }
-    
+
   file { '/etc/puppet':
     ensure => directory,
     owner  => 'root',
     group  => 'root',
     mode   => '0700',
   }
-  
+
   group { 'puppet':
     ensure => present,
     gid    => 52,
