@@ -5,12 +5,10 @@ class puppet {
 
   package { $required: ensure => latest }
 
-  file { '/etc/cron.d/puppet':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/puppet/puppet.cron'
+  cron { 'puppet':
+    command => '/etc/puppet/apply.sh > /dev/null 2>&1',
+    user    => root,
+    minute  => '*/15'
   }
 
   file { '/etc/puppet':
