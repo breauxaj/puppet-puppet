@@ -1,4 +1,6 @@
-class puppet {
+class puppet (
+  interval = '*/15'
+) {
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => 'puppet',
   }
@@ -8,7 +10,7 @@ class puppet {
   cron { 'puppet':
     command => '/etc/puppet/apply.sh > /dev/null 2>&1',
     user    => root,
-    minute  => '*/15'
+    minute  => $interval,
   }
 
   file { '/etc/puppet':
