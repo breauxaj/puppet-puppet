@@ -1,5 +1,9 @@
 class puppet (
-  interval = '*/15'
+  minute = '*/15',
+  hour = '*',
+  monthday = '*',
+  month = '*',
+  weekday = '*'
 ) {
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => 'puppet',
@@ -8,9 +12,13 @@ class puppet (
   package { $required: ensure => latest }
 
   cron { 'puppet':
-    command => '/etc/puppet/apply.sh > /dev/null 2>&1',
-    user    => root,
-    minute  => $interval,
+    command  => '/etc/puppet/apply.sh > /dev/null 2>&1',
+    user     => root,
+    minute   => $minute,
+    hour     => $hour,
+    monthday => $monthday,
+    month    => $month,
+    weekday  => $weekday,
   }
 
   file { '/etc/puppet':
