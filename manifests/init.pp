@@ -1,9 +1,9 @@
 class puppet (
-  minute = '*/15',
-  hour = '*',
-  monthday = '*',
-  month = '*',
-  weekday = '*'
+  $minute = '*/15',
+  $hour = '*',
+  $monthday = '*',
+  $month = '*',
+  $weekday = '*'
 ) {
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => 'puppet',
