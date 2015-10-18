@@ -6,10 +6,20 @@ class puppet (
   $weekday = '*'
 ) {
   $required = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => 'puppet',
+    /(?i-mx:centos|fedora|redhat|scientific)/ =>  [
+      'augtool',
+      'facter',
+      'puppet',
+    ]
   }
 
-  package { $required: ensure => latest }
+  package { $required:
+    ensure => latest,
+    require => [
+      User['puppet'],
+      Group['puppet'],
+    ]
+  }
 
   cron { 'puppet':
     command  => '/etc/puppet/apply.sh > /dev/null 2>&1',
