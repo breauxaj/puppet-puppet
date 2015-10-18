@@ -7,7 +7,7 @@ class puppet (
 ) {
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ =>  [
-      'augtool',
+      'augeas',
       'facter',
       'puppet',
     ]
